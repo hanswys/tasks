@@ -1890,3 +1890,134 @@ Processing by Api::V1::TasksController#stats as */*
 Completed 200 OK in 22ms (Views: 0.2ms | ActiveRecord: 1.2ms (18 queries, 7 cached) | GC: 5.9ms)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories" /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "color" varchar, "created_at" datetime(6) NOT NULL, "icon" varchar, "name" varchar, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "tags" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "color" varchar, "created_at" datetime(6) NOT NULL, "name" varchar, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "task_tags" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "task_tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "tag_id" integer NOT NULL, "task_id" integer NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_tag_id" ON "task_tags" ("tag_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_task_id" ON "task_tags" ("task_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "description" text, "due_date" datetime(6), "estimated_minutes" integer, "parent_id" integer, "position" integer DEFAULT 0, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "title" varchar, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_category_id" ON "tasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_parent_id" ON "tasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atask_tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "tag_id" integer NOT NULL, "task_id" integer NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atask_tags_on_task_id" ON "atask_tags" ("task_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atask_tags_on_tag_id" ON "atask_tags" ("tag_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atask_tags" ("id","created_at","tag_id","task_id","updated_at")
+                     SELECT "id","created_at","tag_id","task_id","updated_at" FROM "task_tags" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "task_tags" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "task_tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "tag_id" integer NOT NULL, "task_id" integer NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f7e1d90bfc"
+FOREIGN KEY ("tag_id")
+  REFERENCES "tags" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_tag_id" ON "task_tags" ("tag_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_task_id" ON "task_tags" ("task_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "task_tags" ("id","created_at","tag_id","task_id","updated_at")
+                     SELECT "id","created_at","tag_id","task_id","updated_at" FROM "atask_tags" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "atask_tags" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atask_tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "tag_id" integer NOT NULL, "task_id" integer NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atask_tags_on_task_id" ON "atask_tags" ("task_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atask_tags_on_tag_id" ON "atask_tags" ("tag_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atask_tags" ("id","created_at","tag_id","task_id","updated_at")
+                     SELECT "id","created_at","tag_id","task_id","updated_at" FROM "task_tags" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "task_tags" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "task_tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime(6) NOT NULL, "tag_id" integer NOT NULL, "task_id" integer NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f7e1d90bfc"
+FOREIGN KEY ("tag_id")
+  REFERENCES "tags" ("id")
+, CONSTRAINT "fk_rails_2a907ecb20"
+FOREIGN KEY ("task_id")
+  REFERENCES "tasks" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_tag_id" ON "task_tags" ("tag_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_task_id" ON "task_tags" ("task_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "task_tags" ("id","created_at","tag_id","task_id","updated_at")
+                     SELECT "id","created_at","tag_id","task_id","updated_at" FROM "atask_tags" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "atask_tags" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "description" text, "due_date" datetime(6), "estimated_minutes" integer, "parent_id" integer, "position" integer DEFAULT 0, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "title" varchar, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_parent_id" ON "atasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_category_id" ON "atasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atasks" ("id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at")
+                     SELECT "id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at" FROM "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "description" text, "due_date" datetime(6), "estimated_minutes" integer, "parent_id" integer, "position" integer DEFAULT 0, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "title" varchar, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_acbc5a096e"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_category_id" ON "tasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_parent_id" ON "tasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "tasks" ("id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at")
+                     SELECT "id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at" FROM "atasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "atasks" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "description" text, "due_date" datetime(6), "estimated_minutes" integer, "parent_id" integer, "position" integer DEFAULT 0, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "title" varchar, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_parent_id" ON "atasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_category_id" ON "atasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atasks" ("id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at")
+                     SELECT "id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at" FROM "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "description" text, "due_date" datetime(6), "estimated_minutes" integer, "parent_id" integer, "position" integer DEFAULT 0, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "title" varchar, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_acbc5a096e"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+, CONSTRAINT "fk_rails_538e121d51"
+FOREIGN KEY ("parent_id")
+  REFERENCES "tasks" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_category_id" ON "tasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_parent_id" ON "tasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "tasks" ("id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at")
+                     SELECT "id","category_id","completed","created_at","description","due_date","estimated_minutes","parent_id","position","priority","status","title","updated_at" FROM "atasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "atasks" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260123010150) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20260123010148),
+(20260123010147),
+(20260123010139),
+(20260121021525); /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-02-04 18:53:52.049685', '2026-02-04 18:53:52.049686') RETURNING "key" /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.0ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2026-02-04 18:53:52.050495' WHERE "ar_internal_metadata"."key" = 'environment' /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a97915800a2fdf51a9fdbee68a548a4f71f8bf6c', '2026-02-04 18:53:52.051141', '2026-02-04 18:53:52.051141') RETURNING "key" /*application='Backend'*/[0m
