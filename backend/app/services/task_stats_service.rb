@@ -80,9 +80,9 @@ class TaskStatsService
 
   # Breakdown of tasks by category
   def category_breakdown
-    Category.left_joins(:tasks)
-            .group(:id, :name)
-            .count("tasks.id")
+    @tasks.joins(:category)
+          .group("categories.id")
+          .count("tasks.id")
   end
 
   # Calculate task completion rate as percentage

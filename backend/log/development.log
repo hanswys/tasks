@@ -2021,3 +2021,4 @@ FOREIGN KEY ("parent_id")
   [1m[36mActiveRecord::InternalMetadata Update (0.0ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = 'test', "updated_at" = '2026-02-04 18:53:52.050495' WHERE "ar_internal_metadata"."key" = 'environment' /*application='Backend'*/[0m
   [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'schema_sha1' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
   [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a97915800a2fdf51a9fdbee68a548a4f71f8bf6c', '2026-02-04 18:53:52.051141', '2026-02-04 18:53:52.051141') RETURNING "key" /*application='Backend'*/[0m
+  [1m[36mTask Count (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" /*application='Backend'*/[0m

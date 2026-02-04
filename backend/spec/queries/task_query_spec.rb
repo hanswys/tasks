@@ -142,29 +142,38 @@ RSpec.describe TaskQuery, type: :query do
       end
 
       it "defaults to created_at for invalid sort field" do
+        create_list(:task, 3)
         result = TaskQuery.new.call(sort: { by: "invalid_field", order: "asc" })
         # Should not raise an error and should return results
         expect(result[:data]).to be_a(Array)
+        expect(result[:data].count).to be > 0
       end
 
       it "defaults to desc for invalid sort order" do
+        create_list(:task, 3)
         result = TaskQuery.new.call(sort: { by: "created_at", order: "invalid" })
         # Should default to desc and return results ordered properly
         expect(result[:data]).to be_a(Array)
         data = result[:data]
-        expect(data.first.created_at >= data.last.created_at).to be true
+        # Verify descending order is applied
+        timestamps = data.map(&:created_at)
+        expect(timestamps).to eq(timestamps.sort.reverse)
       end
 
       it "protects against SQL injection in sort_by" do
+        create_list(:task, 2)
         # Should not raise an error and should default to created_at
         result = TaskQuery.new.call(sort: { by: "created_at; DROP TABLE tasks;", order: "asc" })
         expect(result[:data]).to be_a(Array)
+        expect(result[:data].count).to be > 0
+        # Verify table still exists (SQL injection protected)
+        expect(Task.count).to be > 0
       end
     end
 
     describe "pagination" do
       before do
-        create_list(:task, 30)
+        create_list(:task, 120)  # Create more than MAX_PER_PAGE to test the limit
       end
 
       it "returns default per_page (20) results" do
@@ -215,19 +224,24 @@ RSpec.describe TaskQuery, type: :query do
       end
 
       it "handles invalid page number gracefully" do
+        create_list(:task, 5)
         result = TaskQuery.new.call(page: "invalid", per_page: 10)
-        # Should convert to 1
-        expect(result[:meta][:current_page]).to be >= 1
+        # Should convert to 1 (from "invalid".to_i = 0, then max(0, 1) = 1)
+        expect(result[:meta][:current_page]).to eq(1)
       end
 
       it "handles nil page gracefully" do
+        create_list(:task, 5)
         result = TaskQuery.new.call(page: nil, per_page: 10)
         expect(result[:meta][:current_page]).to eq(1)
       end
 
       it "handles invalid per_page gracefully" do
+        create_list(:task, 5)
         result = TaskQuery.new.call(page: 1, per_page: "invalid")
         expect(result[:data]).to be_a(Array)
+        # Should use default per_page handling
+        expect(result[:meta][:per_page]).to be > 0
       end
     end
 
@@ -272,13 +286,18 @@ RSpec.describe TaskQuery, type: :query do
       end
 
       it "handles empty string filters gracefully" do
+        create_list(:task, 3)
         result = TaskQuery.new.call(filters: { search: "" })
         expect(result[:data]).to be_a(Array)
+        # Empty string should be treated as no filter
+        expect(result[:data].count).to be > 0
       end
 
       it "handles nil filters gracefully" do
+        create_list(:task, 3)
         result = TaskQuery.new.call(filters: nil)
         expect(result[:data]).to be_a(Array)
+        expect(result[:data].count).to be > 0
       end
 
       it "excludes subtasks from results (only top_level)" do

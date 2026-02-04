@@ -129,7 +129,7 @@ module Api
           due_before: params[:due_before],
           due_after: params[:due_after],
           search: params[:search],
-          tag_ids: params[:tag_ids]
+          tag_ids: Array(params[:tag_ids]).reject(&:blank?)
         }
       end
 

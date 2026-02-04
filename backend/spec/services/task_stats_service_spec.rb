@@ -96,13 +96,19 @@ RSpec.describe TaskStatsService, type: :service do
 
         expect(stats[:by_category][category1.id]).to eq(5)
         expect(stats[:by_category][category2.id]).to eq(3)
+        # Verify only categorized tasks are counted
+        expect(stats[:by_category].values.sum).to eq(8)
       end
 
       it "includes all categories in breakdown" do
         stats = TaskStatsService.new.calculate
 
+        # Should include categories that have tasks
         expect(stats[:by_category]).to have_key(category1.id)
         expect(stats[:by_category]).to have_key(category2.id)
+        # Verify counts are correct
+        expect(stats[:by_category][category1.id]).to eq(5)
+        expect(stats[:by_category][category2.id]).to eq(3)
       end
 
       it "does not include uncategorized tasks in category breakdown" do
@@ -129,8 +135,9 @@ RSpec.describe TaskStatsService, type: :service do
       it "does not count completed overdue tasks as overdue" do
         stats = TaskStatsService.new.calculate
 
-        # completed overdue task should not be counted
-        expect(stats[:overdue]).not_to include(overdue_completed)
+        # overdue count should only be 2 (pending and in_progress)
+        # completed tasks (status 2) and archived (status 3) are excluded
+        expect(stats[:overdue]).to eq(2)
       end
 
       it "does not count future due dates as overdue" do
@@ -197,8 +204,11 @@ RSpec.describe TaskStatsService, type: :service do
         pending_with_cat = create(:task, status: :pending, category: category)
         completed_with_cat = create(:task, status: :completed, category: category)
 
+        # Create service with only pending tasks
         stats = TaskStatsService.new(Task.where(status: :pending)).calculate
 
+        # category_breakdown now respects the filter since it uses @tasks.joins(:category)
+        # So with only pending tasks, only the pending task in the category is counted
         expect(stats[:by_category][category.id]).to eq(1)
       end
     end

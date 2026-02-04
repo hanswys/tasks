@@ -50,15 +50,14 @@ RSpec.describe "Api::V1::Tasks", type: :request do
       end
 
       it "returns meta with correct pagination values" do
-        create_list(:task, 5)
         get "/api/v1/tasks"
 
         json = JSON.parse(response.body)
         meta = json["meta"]
         expect(meta["current_page"]).to eq(1)
-        expect(meta["per_page"]).to eq(20)
-        expect(meta["total_count"]).to eq(5)
-        expect(meta["total_pages"]).to eq(1)
+        expect(meta["per_page"]).to eq(20)  # default per_page
+        expect(meta["total_count"]).to eq(5)  # from let!(:tasks)
+        expect(meta["total_pages"]).to eq(1)  # 5 tasks / 20 per_page = 1 page
       end
     end
 
@@ -120,8 +119,8 @@ RSpec.describe "Api::V1::Tasks", type: :request do
     end
 
     context "filtering by tag_ids" do
-      let(:tag1) { create(:tag) }
-      let(:tag2) { create(:tag) }
+      let!(:tag1) { create(:tag) }
+      let!(:tag2) { create(:tag) }
       let!(:task_with_tag1) { create(:task) }
       let!(:task_with_tag2) { create(:task) }
       let!(:task_without_tags) { create(:task) }
@@ -143,14 +142,17 @@ RSpec.describe "Api::V1::Tasks", type: :request do
         get "/api/v1/tasks", params: { tag_ids: [tag1.id, tag2.id] }
 
         json = JSON.parse(response.body)
+        # Should return both tasks that have either tag (using OR logic)
         expect(json["data"].count).to eq(2)
       end
     end
 
     context "filtering by search query" do
-      let!(:task_matching_title) { create(:task, title: "Find Me", description: "Other") }
-      let!(:task_matching_description) { create(:task, title: "Other", description: "Find Me") }
-      let!(:task_not_matching) { create(:task, title: "Nope", description: "Nothing") }
+      before do
+        @task_matching_title = create(:task, title: "Find Me", description: "Other")
+        @task_matching_description = create(:task, title: "Other", description: "Find Me")
+        @task_not_matching = create(:task, title: "Nope", description: "Nothing")
+      end
 
       it "filters by title search" do
         get "/api/v1/tasks", params: { search: "Find Me" }

@@ -38,6 +38,8 @@ class TaskQuery
 
   # Apply all filtering criteria to the relation
   def apply_filters(filters)
+    return if filters.nil? || filters.empty?
+
     @relation = @relation.by_status(filters[:status]) if filters[:status].present?
     @relation = @relation.by_priority(filters[:priority]) if filters[:priority].present?
     @relation = @relation.by_category(filters[:category_id]) if filters[:category_id].present?
@@ -73,11 +75,11 @@ class TaskQuery
 
   # Paginate results and return data with metadata
   def paginate(page, per_page)
-    page = (page || 1).to_i
-    per_page = [[per_page.to_i, 1].max, MAX_PER_PAGE].min
+    page = [(page || 1).to_i, 1].max
+    per_page = (per_page || DEFAULT_PER_PAGE).to_i.clamp(1, MAX_PER_PAGE)
     total_count = @relation.count
 
-    tasks = @relation.offset((page - 1) * per_page).limit(per_page)
+    tasks = @relation.offset((page - 1) * per_page).limit(per_page).to_a
 
     {
       data: tasks,

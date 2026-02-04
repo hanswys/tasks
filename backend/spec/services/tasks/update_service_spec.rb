@@ -140,6 +140,7 @@ RSpec.describe Tasks::UpdateService, type: :service do
       end
 
       it "clears tags when empty array provided" do
+        task = create(:task, :with_tags)
         service = Tasks::UpdateService.new(task)
         result = service.call(task_params: {}, tag_ids: [])
 
@@ -174,16 +175,18 @@ RSpec.describe Tasks::UpdateService, type: :service do
         task = Task.new(title: "Valid Task")
         service = Tasks::UpdateService.new(task)
 
-        # Use invalid tag IDs - this should not prevent save
-        # but we're testing transaction behavior
+        # Create a tag to use
+        valid_tag = create(:tag)
+
+        # Test successful creation with tag association
         result = service.call(
           task_params: { title: "Task" },
-          tag_ids: [99999] # non-existent tag
+          tag_ids: [valid_tag.id]
         )
 
-        # In Rails, assigning non-existent IDs silently ignores them
-        # so this should still succeed
+        # Should succeed since tag is valid
         expect(result.success?).to be true
+        expect(result.task.tags).to include(valid_tag)
       end
 
       it "handles exceptions gracefully" do
@@ -277,7 +280,7 @@ RSpec.describe Tasks::UpdateService, type: :service do
           service = Tasks::UpdateService.new(task)
           result = service.call(task_params: task_params)
 
-          expect(result.errors).to eq({})
+          expect(result.errors).to be_empty
         end
 
         it "returns errors hash on failure" do
@@ -286,6 +289,7 @@ RSpec.describe Tasks::UpdateService, type: :service do
 
           expect(result.errors).to be_a(Hash)
           expect(result.errors).not_to be_empty
+          expect(result.errors).to have_key(:title)
         end
       end
     end

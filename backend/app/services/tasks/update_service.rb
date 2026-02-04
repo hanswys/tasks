@@ -47,10 +47,15 @@ module Tasks
         @task.assign_attributes(task_params)
 
         unless @task.save
-          return Result.new(@task, @task.errors)
+          # Convert ActiveModel::Errors to a simple hash for the Result object
+          error_hash = @task.errors.messages.transform_values { |msgs| msgs }
+          return Result.new(@task, error_hash)
         end
 
-        update_tags(tag_ids) if tag_ids.present?
+        # Handle tag updates if tag_ids is provided (including empty arrays)
+        if tag_ids.is_a?(Array)
+          update_tags(tag_ids)
+        end
 
         Result.new(@task, {})
       rescue StandardError => e

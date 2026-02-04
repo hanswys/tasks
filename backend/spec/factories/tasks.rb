@@ -2,12 +2,12 @@
 
 FactoryBot.define do
   factory :category do
-    name { Faker::Company.department }
+    sequence(:name) { |n| "#{Faker::Company.department}-#{n}" }
     color { Faker::Color.hex_color }
   end
 
   factory :tag do
-    name { Faker::Lorem.word }
+    sequence(:name) { |n| "#{Faker::Lorem.word}-#{n}" }
     color { Faker::Color.hex_color }
   end
 
