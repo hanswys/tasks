@@ -1,0 +1,1892 @@
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-01-21 02:24:13.218217', '2026-01-21 02:24:13.218219') RETURNING "key" /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Migrating to CreateTasks (20260121021525)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" text, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260121021525') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:44:35 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 25ms (Views: 0.6ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:44:50 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-21 13:45:16 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "Buy groceries", "description" => "Milk, eggs, bread"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (1.7ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at") VALUES ('Buy groceries', 'Milk, eggs, bread', FALSE, '2026-01-21 19:45:16.890361', '2026-01-21 19:45:16.890361') RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+Completed 201 Created in 18ms (Views: 0.1ms | ActiveRecord: 2.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:45:16 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-21 13:45:35 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "Walk the dog", "description" => ""}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (1.5ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at") VALUES ('Walk the dog', '', FALSE, '2026-01-21 19:45:35.308033', '2026-01-21 19:45:35.308033') RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+Completed 201 Created in 6ms (Views: 0.2ms | ActiveRecord: 2.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:45:35 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/1" for ::1 at 2026-01-21 13:45:42 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => true}, "id" => "1"}
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 1 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.1ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = TRUE, "updated_at" = '2026-01-21 19:45:42.527792' WHERE "tasks"."id" = 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 10ms (Views: 0.2ms | ActiveRecord: 1.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:45:42 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:48:41 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (2.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:48:41 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:48:58 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-21 13:48:58 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:39:53 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 23ms (Views: 2.7ms | ActiveRecord: 1.6ms (1 query, 0 cached) | GC: 9.6ms)
+
+
+Started PATCH "/api/v1/tasks/2" for ::1 at 2026-01-22 12:39:57 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => true}, "id" => "2"}
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 2 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.1ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = TRUE, "updated_at" = '2026-01-22 18:39:57.870723' WHERE "tasks"."id" = 2 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 9ms (Views: 0.3ms | ActiveRecord: 1.6ms (2 queries, 0 cached) | GC: 1.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:39:57 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started PATCH "/api/v1/tasks/2" for ::1 at 2026-01-22 12:39:58 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => false}, "id" => "2"}
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 2 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.5ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = FALSE, "updated_at" = '2026-01-22 18:39:58.114057' WHERE "tasks"."id" = 2 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 6ms (Views: 0.3ms | ActiveRecord: 1.8ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:39:58 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/1" for ::1 at 2026-01-22 12:39:59 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => false}, "id" => "1"}
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 1 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.9ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = FALSE, "updated_at" = '2026-01-22 18:39:59.755653' WHERE "tasks"."id" = 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 2.5ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:39:59 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/1" for ::1 at 2026-01-22 12:40:00 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => true}, "id" => "1"}
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 1 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.8ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = TRUE, "updated_at" = '2026-01-22 18:40:00.199672' WHERE "tasks"."id" = 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 2.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:40:00 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/1" for ::1 at 2026-01-22 12:40:00 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => false}, "id" => "1"}
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 1 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.8ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = FALSE, "updated_at" = '2026-01-22 18:40:00.667804' WHERE "tasks"."id" = 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 8ms (Views: 0.4ms | ActiveRecord: 2.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:40:00 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/2" for ::1 at 2026-01-22 12:40:08 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"completed" => true}, "id" => "2"}
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 2 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.7ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = TRUE, "updated_at" = '2026-01-22 18:40:08.369121' WHERE "tasks"."id" = 2 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:28:in 'Api::V1::TasksController#update'
+Completed 200 OK in 7ms (Views: 0.3ms | ActiveRecord: 2.5ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:40:08 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-22 12:40:11 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "hi", "description" => ""}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (1.8ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at") VALUES ('hi', '', FALSE, '2026-01-22 18:40:11.750946', '2026-01-22 18:40:11.750946') RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+Completed 201 Created in 6ms (Views: 0.2ms | ActiveRecord: 2.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:40:11 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/api/v1/tasks/2" for ::1 at 2026-01-22 12:46:41 -0600
+Processing by Api::V1::TasksController#destroy as */*
+  Parameters: {"id" => "2"}
+  [1m[36mTask Load (2.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 2 LIMIT 1 /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+  [1m[36mTask Destroy (1.2ms)[0m  [1m[31mDELETE FROM "tasks" WHERE "tasks"."id" = 2 /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+Completed 204 No Content in 9ms (ActiveRecord: 4.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:41 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/api/v1/tasks/3" for ::1 at 2026-01-22 12:46:42 -0600
+Processing by Api::V1::TasksController#destroy as */*
+  Parameters: {"id" => "3"}
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 3 LIMIT 1 /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+  [1m[36mTask Destroy (1.5ms)[0m  [1m[31mDELETE FROM "tasks" WHERE "tasks"."id" = 3 /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+Completed 204 No Content in 6ms (ActiveRecord: 2.0ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:42 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/api/v1/tasks/1" for ::1 at 2026-01-22 12:46:42 -0600
+Processing by Api::V1::TasksController#destroy as */*
+  Parameters: {"id" => "1"}
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 1 LIMIT 1 /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:44:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+  [1m[36mTask Destroy (1.5ms)[0m  [1m[31mDELETE FROM "tasks" WHERE "tasks"."id" = 1 /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='destroy',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:37:in 'Api::V1::TasksController#destroy'
+Completed 204 No Content in 6ms (ActiveRecord: 2.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:42 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:43 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:45 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:45 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:46:46 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:51:14 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 1.1ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 12:51:19 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (1.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 4ms (Views: 2.1ms | ActiveRecord: 1.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-22 13:15:03 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "Pet the cat", "description" => ""}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (2.9ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at") VALUES ('Pet the cat', '', FALSE, '2026-01-22 19:15:03.865475', '2026-01-22 19:15:03.865475') RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:19:in 'Api::V1::TasksController#create'
+Completed 201 Created in 7ms (Views: 0.2ms | ActiveRecord: 3.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 13:15:03 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 13:49:34 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Load (6.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" ORDER BY "tasks"."created_at" DESC /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:7:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 4.6ms | ActiveRecord: 6.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Migrating to CreateCategories (20260123010139)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "color" varchar, "icon" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260123010139') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+Migrating to CreateTags (20260123010147)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "color" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260123010147') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+Migrating to CreateTaskTags (20260123010148)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "task_tags" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "task_id" integer NOT NULL, "tag_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_2a907ecb20"
+FOREIGN KEY ("task_id")
+  REFERENCES "tasks" ("id")
+, CONSTRAINT "fk_rails_f7e1d90bfc"
+FOREIGN KEY ("tag_id")
+  REFERENCES "tags" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_task_id" ON "task_tags" ("task_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_task_tags_on_tag_id" ON "task_tags" ("tag_id") /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260123010148') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+Migrating to AddFieldsToTasks (20260123010150)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='Backend'*/[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "tasks" ADD "priority" integer DEFAULT 0 /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "tasks" ADD "status" integer DEFAULT 0 /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "tasks" ADD "due_date" datetime(6) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "tasks" ADD "category_id" integer /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_category_id" ON "tasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" text, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "due_date" datetime(6), "category_id" integer) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_category_id" ON "atasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atasks" ("id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id")
+                     SELECT "id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id" FROM "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" text, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "due_date" datetime(6), "category_id" integer, CONSTRAINT "fk_rails_acbc5a096e"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_category_id" ON "tasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "tasks" ("id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id")
+                     SELECT "id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id" FROM "atasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "atasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "tasks" ADD "position" integer DEFAULT 0 /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "tasks" ADD "estimated_minutes" integer /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "tasks" ADD "parent_id" integer /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_parent_id" ON "tasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "atasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" text, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "due_date" datetime(6), "category_id" integer, "position" integer DEFAULT 0, "estimated_minutes" integer, "parent_id" integer) /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_parent_id" ON "atasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "tindex_atasks_on_category_id" ON "atasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "atasks" ("id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id","position","estimated_minutes","parent_id")
+                     SELECT "id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id","position","estimated_minutes","parent_id" FROM "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "tasks" /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "description" text, "completed" boolean DEFAULT FALSE, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "priority" integer DEFAULT 0, "status" integer DEFAULT 0, "due_date" datetime(6), "category_id" integer, "position" integer DEFAULT 0, "estimated_minutes" integer, "parent_id" integer, CONSTRAINT "fk_rails_acbc5a096e"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+, CONSTRAINT "fk_rails_538e121d51"
+FOREIGN KEY ("parent_id")
+  REFERENCES "tasks" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_category_id" ON "tasks" ("category_id") /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_tasks_on_parent_id" ON "tasks" ("parent_id") /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "tasks" ("id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id","position","estimated_minutes","parent_id")
+                     SELECT "id","title","description","completed","created_at","updated_at","priority","status","due_date","category_id","position","estimated_minutes","parent_id" FROM "atasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE "atasks" /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0 /*application='Backend'*/[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1 /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260123010150') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:13:01 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 40ms (Views: 0.1ms | ActiveRecord: 1.7ms (3 queries, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:13:01 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=in_progress" for ::1 at 2026-01-22 19:13:18 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "in_progress"}
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 1 ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 0.2ms | ActiveRecord: 0.7ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=pending" for ::1 at 2026-01-22 19:13:22 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "pending"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.2ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-22 19:13:31 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "Book a flight", "description" => ""}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:77:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (3.0ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at", "priority", "status", "due_date", "category_id", "position", "estimated_minutes", "parent_id") VALUES ('Book a flight', '', FALSE, '2026-01-23 01:13:31.515166', '2026-01-23 01:13:31.515166', 0, 0, NULL, NULL, 0, NULL, NULL) RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:77:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:77:in 'Api::V1::TasksController#create'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:82:in 'Api::V1::TasksController#create'
+Completed 201 Created in 11ms (Views: 0.1ms | ActiveRecord: 4.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:13:31 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.7ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=pending" for ::1 at 2026-01-22 19:13:41 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "pending"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-22 19:13:52 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "Massage myself", "description" => ""}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:77:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (1.5ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at", "priority", "status", "due_date", "category_id", "position", "estimated_minutes", "parent_id") VALUES ('Massage myself', '', FALSE, '2026-01-23 01:13:52.292973', '2026-01-23 01:13:52.292973', 0, 0, NULL, NULL, 0, NULL, NULL) RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:77:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:77:in 'Api::V1::TasksController#create'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:82:in 'Api::V1::TasksController#create'
+Completed 201 Created in 6ms (Views: 0.1ms | ActiveRecord: 1.9ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:13:52 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?sort_order=asc" for ::1 at 2026-01-22 19:14:01 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"sort_order" => "asc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" ASC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 0.6ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:14:01 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?sort_order=desc" for ::1 at 2026-01-22 19:14:05 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"sort_order" => "desc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.2ms | ActiveRecord: 0.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?sort_by=created_at&sort_order=desc" for ::1 at 2026-01-22 19:14:08 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"sort_by" => "created_at", "sort_order" => "desc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=c" for ::1 at 2026-01-22 19:14:18 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "c"}
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%c%' OR description LIKE '%c%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%c%' OR description LIKE '%c%') ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 9ms (Views: 0.5ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=cc" for ::1 at 2026-01-22 19:14:20 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "cc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cc%' OR description LIKE '%cc%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cc%' OR description LIKE '%cc%') ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.7ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=ca" for ::1 at 2026-01-22 19:14:21 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "ca"}
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%ca%' OR description LIKE '%ca%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%ca%' OR description LIKE '%ca%') ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=cat" for ::1 at 2026-01-22 19:14:22 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "cat"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cat%' OR description LIKE '%cat%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cat%' OR description LIKE '%cat%') ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?priority=low&sort_order=asc" for ::1 at 2026-01-22 19:15:14 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"priority" => "low", "sort_order" => "asc"}
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."priority" = 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."priority" = 0 ORDER BY "tasks"."created_at" ASC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.7ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:15:14 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=in_progress&priority=low&sort_order=asc" for ::1 at 2026-01-22 19:15:16 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "in_progress", "priority" => "low", "sort_order" => "asc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 1 AND "tasks"."priority" = 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 1 AND "tasks"."priority" = 0 ORDER BY "tasks"."created_at" ASC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:15:18 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=d" for ::1 at 2026-01-22 19:15:20 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "d"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%d%' OR description LIKE '%d%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%d%' OR description LIKE '%d%') ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=sd" for ::1 at 2026-01-22 19:15:21 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "sd"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%sd%' OR description LIKE '%sd%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:31:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%sd%' OR description LIKE '%sd%') ORDER BY "tasks"."created_at" DESC LIMIT 1 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:35:in 'Api::V1::TasksController#index'
+Completed 200 OK in 3ms (Views: 0.1ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:16:36 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:16:58 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 26ms (Views: 0.1ms | ActiveRecord: 1.3ms (5 queries, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:16:58 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=book" for ::1 at 2026-01-22 19:17:02 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "book"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%book%' OR description LIKE '%book%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%book%' OR description LIKE '%book%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.7ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=ca" for ::1 at 2026-01-22 19:17:04 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "ca"}
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%ca%' OR description LIKE '%ca%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%ca%' OR description LIKE '%ca%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.8ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=cat" for ::1 at 2026-01-22 19:17:06 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "cat"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cat%' OR description LIKE '%cat%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cat%' OR description LIKE '%cat%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 4ms (Views: 0.1ms | ActiveRecord: 0.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=fl" for ::1 at 2026-01-22 19:17:11 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "fl"}
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%fl%' OR description LIKE '%fl%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%fl%' OR description LIKE '%fl%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?sort_order=asc" for ::1 at 2026-01-22 19:17:17 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"sort_order" => "asc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" ASC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.6ms (5 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?sort_order=desc" for ::1 at 2026-01-22 19:17:20 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"sort_order" => "desc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.7ms (5 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=pending&sort_order=desc" for ::1 at 2026-01-22 19:17:23 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "pending", "sort_order" => "desc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.7ms (5 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=pending&sort_by=created_at&sort_order=desc" for ::1 at 2026-01-22 19:17:25 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "pending", "sort_by" => "created_at", "sort_order" => "desc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.9ms (5 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?status=pending&priority=medium&sort_by=created_at&sort_order=desc" for ::1 at 2026-01-22 19:17:30 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"status" => "pending", "priority" => "medium", "sort_by" => "created_at", "sort_order" => "desc"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 AND "tasks"."priority" = 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."status" = 0 AND "tasks"."priority" = 1 ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-22 19:17:40 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "Get it done", "description" => ""}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:76:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (1.7ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at", "priority", "status", "due_date", "category_id", "position", "estimated_minutes", "parent_id") VALUES ('Get it done', '', FALSE, '2026-01-23 01:17:40.725750', '2026-01-23 01:17:40.725750', 0, 0, NULL, NULL, 0, NULL, NULL) RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:76:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:76:in 'Api::V1::TasksController#create'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:81:in 'Api::V1::TasksController#create'
+Completed 201 Created in 8ms (Views: 0.1ms | ActiveRecord: 2.6ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:17:40 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.5ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=done" for ::1 at 2026-01-22 19:17:45 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "done"}
+  [1m[36mTask Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%done%' OR description LIKE '%done%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%done%' OR description LIKE '%done%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=my" for ::1 at 2026-01-22 19:17:49 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "my"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%my%' OR description LIKE '%my%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%my%' OR description LIKE '%my%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.7ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=d" for ::1 at 2026-01-22 19:18:07 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "d"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%d%' OR description LIKE '%d%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%d%' OR description LIKE '%d%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.6ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:18:07 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=c" for ::1 at 2026-01-22 19:18:10 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "c"}
+  [1m[36mTask Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%c%' OR description LIKE '%c%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%c%' OR description LIKE '%c%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 0.8ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=ca" for ::1 at 2026-01-22 19:18:12 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "ca"}
+  [1m[36mTask Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%ca%' OR description LIKE '%ca%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%ca%' OR description LIKE '%ca%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 0.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?search=cat" for ::1 at 2026-01-22 19:18:14 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"search" => "cat"}
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cat%' OR description LIKE '%cat%') /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND (title LIKE '%cat%' OR description LIKE '%cat%') ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.8ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tags" for ::1 at 2026-01-22 19:21:13 -0600
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:21:13 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+Completed 200 OK in 2ms (Views: 1.0ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:22:24 -0600
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:22:24 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-22 19:22:24 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+Processing by Api::V1::CategoriesController#index as */*
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (1.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 5ms (Views: 4.1ms | ActiveRecord: 1.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+Processing by Api::V1::TagsController#index as */*
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Completed 200 OK in 14ms (Views: 0.0ms | ActiveRecord: 0.7ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:29:30 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (2.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.3ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 3.3ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:29:30 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-22 19:29:30 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+Completed 200 OK in 1ms (Views: 0.7ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/categories" for ::1 at 2026-01-22 19:29:39 -0600
+Processing by Api::V1::CategoriesController#create as */*
+  Parameters: {"category" => {"name" => "Fake", "color" => "#3B82F6", "icon" => "📁"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:19:in 'Api::V1::CategoriesController#create'
+  [1m[36mCategory Exists? (1.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE "categories"."name" = 'Fake' LIMIT 1 /*action='create',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:19:in 'Api::V1::CategoriesController#create'
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "color", "icon", "created_at", "updated_at") VALUES ('Fake', '#3B82F6', '📁', '2026-01-23 01:29:39.488508', '2026-01-23 01:29:39.488508') RETURNING "id" /*action='create',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:19:in 'Api::V1::CategoriesController#create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:19:in 'Api::V1::CategoriesController#create'
+Completed 201 Created in 12ms (Views: 0.2ms | ActiveRecord: 2.6ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:29:39 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 2ms (Views: 1.3ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/api/v1/tasks" for ::1 at 2026-01-22 19:29:47 -0600
+Processing by Api::V1::TasksController#create as */*
+  Parameters: {"task" => {"title" => "test", "description" => "", "priority" => "high", "category_id" => 1}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:76:in 'Api::V1::TasksController#create'
+  [1m[36mTask Create (1.9ms)[0m  [1m[32mINSERT INTO "tasks" ("title", "description", "completed", "created_at", "updated_at", "priority", "status", "due_date", "category_id", "position", "estimated_minutes", "parent_id") VALUES ('test', '', FALSE, '2026-01-23 01:29:47.879954', '2026-01-23 01:29:47.879954', 2, 0, NULL, 1, 0, NULL, NULL) RETURNING "id" /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:76:in 'Api::V1::TasksController#create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:76:in 'Api::V1::TasksController#create'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:81:in 'Api::V1::TasksController#create'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='create',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:81:in 'Api::V1::TasksController#create'
+Completed 201 Created in 10ms (Views: 0.1ms | ActiveRecord: 2.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:29:47 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 0.7ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?priority=high" for ::1 at 2026-01-22 19:29:54 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"priority" => "high"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."priority" = 2 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."priority" = 2 ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 0.2ms | ActiveRecord: 0.7ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?priority=high&category_id=1" for ::1 at 2026-01-22 19:29:57 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"priority" => "high", "category_id" => "1"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."priority" = 2 AND "tasks"."category_id" = 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL AND "tasks"."priority" = 2 AND "tasks"."category_id" = 1 ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 16ms (Views: 0.1ms | ActiveRecord: 0.2ms (4 queries, 0 cached) | GC: 12.1ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:34:40 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 0.8ms (8 queries, 0 cached) | GC: 1.1ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:34:40 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-22 19:34:40 -0600
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-22 19:34:41 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 0.5ms (8 queries, 0 cached) | GC: 2.0ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-22 19:34:41 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-22 19:34:41 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 1ms (Views: 0.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-23 10:47:24 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-23 10:47:24 -0600
+Started GET "/api/v1/categories" for ::1 at 2026-01-23 10:47:24 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+Processing by Api::V1::CategoriesController#index as */*
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+Processing by Api::V1::TagsController#index as */*
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 1ms (Views: 1.3ms | ActiveRecord: 0.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 18ms (Views: 0.0ms | ActiveRecord: 2.7ms (8 queries, 0 cached) | GC: 1.2ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-23 12:27:30 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-23 12:27:30 -0600
+Started GET "/api/v1/tasks" for ::1 at 2026-01-23 12:27:30 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (1.9ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 4ms (Views: 2.2ms | ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+Processing by Api::V1::TagsController#index as */*
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.7ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 11ms (Views: 0.1ms | ActiveRecord: 0.7ms (8 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-23 12:31:46 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-23 12:31:46 -0600
+Started GET "/api/v1/categories" for ::1 at 2026-01-23 12:31:46 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+  [1m[36mTag Load (0.3ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+Completed 200 OK in 4ms (Views: 3.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.3ms)
+
+
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 0.9ms (8 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-23 19:09:56 -0600
+Started GET "/api/v1/categories" for ::1 at 2026-01-23 19:09:56 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-23 19:09:56 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (2.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.5ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mTag Load (0.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+Processing by Api::V1::TagsController#index as */*
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 19ms (Views: 0.1ms | ActiveRecord: 3.8ms (8 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/categories" for ::1 at 2026-01-23 20:38:54 -0600
+Started GET "/api/v1/tags" for ::1 at 2026-01-23 20:38:54 -0600
+Started GET "/api/v1/tasks" for ::1 at 2026-01-23 20:38:54 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (1.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 1.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mTag Load (0.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+Completed 200 OK in 2ms (Views: 1.5ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 8ms (Views: 0.1ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 1.0ms)
+
+
+Started GET "/api/v1/tasks/stats" for ::1 at 2026-01-25 01:54:58 -0600
+Started GET "/api/v1/categories" for ::1 at 2026-01-25 01:54:58 -0600
+Processing by Api::V1::CategoriesController#index as */*
+  [1m[36mCategory Load (5.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC /*action='index',application='Backend',controller='categories'*/[0m
+  ↳ app/controllers/api/v1/categories_controller.rb:7:in 'Api::V1::CategoriesController#index'
+Completed 200 OK in 13ms (Views: 3.0ms | ActiveRecord: 5.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by Api::V1::TasksController#stats as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:50:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 0 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:51:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 1 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:52:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:53:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 3 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:54:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 0 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:56:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 1 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:57:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 2 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:58:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 3 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:59:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 0[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:62:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 1[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:63:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:64:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 3[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:65:in 'Api::V1::TasksController#stats'
+  [1m[36mCategory Count (0.0ms)[0m  [1m[34mSELECT COUNT("tasks"."id") AS "count_tasks_id", "categories"."id" AS "categories_id", "categories"."name" AS "categories_name" FROM "categories" LEFT OUTER JOIN "tasks" ON "tasks"."category_id" = "categories"."id" GROUP BY "categories"."id", "categories"."name" /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:67:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks"[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks"[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE (due_date < '2026-01-25 07:54:58.559199' AND status NOT IN (2, 3)) /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:69:in 'Api::V1::TasksController#stats'
+Completed 200 OK in 12ms (Views: 0.1ms | ActiveRecord: 0.6ms (18 queries, 7 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-25 01:55:00 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 21ms (Views: 0.1ms | ActiveRecord: 1.0ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tags" for ::1 at 2026-01-25 01:55:00 -0600
+Processing by Api::V1::TagsController#index as */*
+  [1m[36mTag Load (0.4ms)[0m  [1m[34mSELECT "tags".* FROM "tags" ORDER BY "tags"."name" ASC /*action='index',application='Backend',controller='tags'*/[0m
+  ↳ app/controllers/api/v1/tags_controller.rb:7:in 'Api::V1::TagsController#index'
+Completed 200 OK in 7ms (Views: 1.7ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:01 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 1.1ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/7" for ::1 at 2026-01-25 01:55:06 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"status" => "in_progress"}, "id" => "7"}
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 7 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:155:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.4ms)[0m  [1m[33mUPDATE "tasks" SET "updated_at" = '2026-01-25 07:55:06.408108', "status" = 1 WHERE "tasks"."id" = 7 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:100:in 'Api::V1::TasksController#update'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 2.3ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:06 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 17ms (Views: 0.1ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 8.6ms)
+
+
+Started PATCH "/api/v1/tasks/6" for ::1 at 2026-01-25 01:55:07 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"status" => "completed"}, "id" => "6"}
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 6 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:155:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.7ms)[0m  [1m[33mUPDATE "tasks" SET "updated_at" = '2026-01-25 07:55:07.557225', "status" = 2 WHERE "tasks"."id" = 6 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:100:in 'Api::V1::TasksController#update'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 2.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:07 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/api/v1/tasks/stats" for ::1 at 2026-01-25 01:55:08 -0600
+Processing by Api::V1::TasksController#stats as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:50:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 0 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:51:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 1 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:52:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:53:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 3 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:54:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 0 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:56:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 1 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:57:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 2 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:58:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 3 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:59:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 0[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:62:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 1[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:63:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:64:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 3[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:65:in 'Api::V1::TasksController#stats'
+  [1m[36mCategory Count (0.2ms)[0m  [1m[34mSELECT COUNT("tasks"."id") AS "count_tasks_id", "categories"."id" AS "categories_id", "categories"."name" AS "categories_name" FROM "categories" LEFT OUTER JOIN "tasks" ON "tasks"."category_id" = "categories"."id" GROUP BY "categories"."id", "categories"."name" /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:67:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks"[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks"[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE (due_date < '2026-01-25 07:55:08.620885' AND status NOT IN (2, 3)) /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:69:in 'Api::V1::TasksController#stats'
+Completed 200 OK in 16ms (Views: 0.1ms | ActiveRecord: 1.0ms (18 queries, 7 cached) | GC: 1.9ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-25 01:55:10 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 14ms (Views: 0.1ms | ActiveRecord: 1.1ms (8 queries, 0 cached) | GC: 0.8ms)
+
+
+Started PATCH "/api/v1/tasks/5" for ::1 at 2026-01-25 01:55:20 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"status" => "completed", "completed" => true}, "id" => "5"}
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 5 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:155:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.8ms)[0m  [1m[33mUPDATE "tasks" SET "completed" = TRUE, "updated_at" = '2026-01-25 07:55:20.622571', "status" = 2 WHERE "tasks"."id" = 5 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:100:in 'Api::V1::TasksController#update'
+Completed 200 OK in 12ms (Views: 0.2ms | ActiveRecord: 2.7ms (3 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-25 01:55:20 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.7ms (8 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:21 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.1ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 6ms (Views: 0.1ms | ActiveRecord: 0.5ms (8 queries, 0 cached) | GC: 0.1ms)
+
+
+Started PATCH "/api/v1/tasks/4" for ::1 at 2026-01-25 01:55:25 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"status" => "archived"}, "id" => "4"}
+  [1m[36mTask Load (0.4ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 4 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:155:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.4ms)[0m  [1m[33mUPDATE "tasks" SET "updated_at" = '2026-01-25 07:55:25.624791', "status" = 3 WHERE "tasks"."id" = 4 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:100:in 'Api::V1::TasksController#update'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 2.0ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:25 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 10ms (Views: 0.1ms | ActiveRecord: 0.7ms (8 queries, 0 cached) | GC: 0.2ms)
+
+
+Started PATCH "/api/v1/tasks/5" for ::1 at 2026-01-25 01:55:27 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"status" => "in_progress"}, "id" => "5"}
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 5 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:155:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.5ms)[0m  [1m[33mUPDATE "tasks" SET "updated_at" = '2026-01-25 07:55:27.341253', "status" = 1 WHERE "tasks"."id" = 5 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:100:in 'Api::V1::TasksController#update'
+Completed 200 OK in 7ms (Views: 0.1ms | ActiveRecord: 1.9ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:27 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 0.9ms (8 queries, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-25 01:55:28 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 0.1ms | ActiveRecord: 1.1ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started PATCH "/api/v1/tasks/6" for ::1 at 2026-01-25 01:55:32 -0600
+Processing by Api::V1::TasksController#update as */*
+  Parameters: {"task" => {"status" => "in_progress"}, "id" => "6"}
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."id" = 6 LIMIT 1 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:155:in 'Api::V1::TasksController#set_task'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTask Update (1.9ms)[0m  [1m[33mUPDATE "tasks" SET "updated_at" = '2026-01-25 07:55:32.101124', "status" = 1 WHERE "tasks"."id" = 6 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:95:in 'Api::V1::TasksController#update'
+  [1m[36mTag Load (0.2ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='update',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:100:in 'Api::V1::TasksController#update'
+Completed 200 OK in 11ms (Views: 0.2ms | ActiveRecord: 2.5ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks?per_page=100" for ::1 at 2026-01-25 01:55:32 -0600
+Processing by Api::V1::TasksController#index as */*
+  Parameters: {"per_page" => "100"}
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.2ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 100 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 9ms (Views: 0.1ms | ActiveRecord: 0.6ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks" for ::1 at 2026-01-25 01:55:32 -0600
+Processing by Api::V1::TasksController#index as */*
+  [1m[36mTask Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."parent_id" IS NULL /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:30:in 'Api::V1::TasksController#index'
+  [1m[36mTask Load (0.3ms)[0m  [1m[34mSELECT "tasks".* FROM "tasks" WHERE "tasks"."parent_id" IS NULL ORDER BY "tasks"."created_at" DESC LIMIT 20 OFFSET 0 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = 1 LIMIT 1 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 8 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 7 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 6 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.1ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 5 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+  [1m[36mTag Load (0.0ms)[0m  [1m[34mSELECT "tags".* FROM "tags" INNER JOIN "task_tags" ON "tags"."id" = "task_tags"."tag_id" WHERE "task_tags"."task_id" = 4 /*action='index',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:34:in 'Api::V1::TasksController#index'
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 1.0ms (8 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/v1/tasks/stats" for ::1 at 2026-01-25 01:55:34 -0600
+Processing by Api::V1::TasksController#stats as */*
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:50:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 0 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:51:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 1 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:52:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:53:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 3 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:54:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 0 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:56:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 1 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:57:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 2 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:58:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."priority" = 3 /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:59:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 0[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:62:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 1[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:63:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:64:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 3[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:65:in 'Api::V1::TasksController#stats'
+  [1m[36mCategory Count (0.2ms)[0m  [1m[34mSELECT COUNT("tasks"."id") AS "count_tasks_id", "categories"."id" AS "categories_id", "categories"."name" AS "categories_name" FROM "categories" LEFT OUTER JOIN "tasks" ON "tasks"."category_id" = "categories"."id" GROUP BY "categories"."id", "categories"."name" /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:67:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks"[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE "tasks"."status" = 2[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mCACHE Task Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks"[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:68:in 'Api::V1::TasksController#stats'
+  [1m[36mTask Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "tasks" WHERE (due_date < '2026-01-25 07:55:34.266399' AND status NOT IN (2, 3)) /*action='stats',application='Backend',controller='tasks'*/[0m
+  ↳ app/controllers/api/v1/tasks_controller.rb:69:in 'Api::V1::TasksController#stats'
+Completed 200 OK in 22ms (Views: 0.2ms | ActiveRecord: 1.2ms (18 queries, 7 cached) | GC: 5.9ms)
+
+
